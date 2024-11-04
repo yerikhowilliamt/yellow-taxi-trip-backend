@@ -81,8 +81,8 @@ Sebelum menjalankan proyek ini, pastikan telah menginstal:
    - http://localhost:4000/api/yellow-taxi-trips/filtered?pickupTime=2014-09-10T00:00:00&dropoffTime=2014-09-10T23:59:59&minFare=0&maxFare=20&minDistance=1.2&maxDistance=20&paymentType=CSH
    - Deskripsi: Mengambil data perjalanan taksi dengan filter berdasarkan waktu, tarif, jarak, dan tipe pembayaran.
    - Parameter:
-     - pickupTime (optional): Waktu menaikan penumpang.
-     - dropoffTime (optional): Waktu menurunkan penumpang.
+     - startDateTime (optional): Waktu dimulai.
+     - endDateTime (optional): Waktu berakhir.
      - minFare (optional): Tarif minimum.
      - maxFare (optional): Tarif maksimum.
      - minDistance (optional): Jarak minimum.
