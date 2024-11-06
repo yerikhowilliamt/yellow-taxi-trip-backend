@@ -41,7 +41,7 @@ Sebelum menjalankan proyek ini, pastikan telah menginstal:
 
    ```bash
    git clone https://github.com/yerikhowilliamt/yellow-taxi-trip-backend.git
-   cd repository-name
+   cd yellow-taxi-trip-backend
 
 2. Ubah konfigurasi database sesuai database kamu :
    PORT=4000
