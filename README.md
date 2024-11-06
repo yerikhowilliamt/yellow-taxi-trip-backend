@@ -8,12 +8,23 @@
 
 Proyek backend untuk analisis data Yellow Taxi Trip menggunakan NestJS dan PostgreSQL dengan PostGIS untuk penyimpanan dan pengolahan data spasial. Backend ini menyediakan API untuk mengambil dan menyimpan data perjalanan taksi serta mendukung filter berdasarkan waktu, tarif, jarak, dan tipe pembayaran.
 
+
 ## Fitur
 
-- Mengambil data perjalanan taksi dari API Socrata.
-- Menyimpan data ke dalam database PostgreSQL dengan PostGIS.
-- API untuk mengambil semua perjalanan taksi.
-- Dukungan filter pada API berdasarkan waktu, tarif, jarak, dan tipe pembayaran.
+- **Pengambilan data perjalanan**: Mengambil data perjalanan taksi dari API socrata.
+- **Penyimpanan ke database**: Menyimpan data yang diambil ke dalam database PostgreSQL.
+- **Pencarian dengan filter**: Mengambil data perjalanan berdasarkan filter tertentu (seperti waktu, tarif, jarak, dan jenis pembayaran.).
+- **Pagination**: Mendukung pagination untuk pengambilan data perjalanan dengan jumlah terbatas per halaman.
+
+
+## Teknologi yang Digunakan
+
+- **NestJS**: Framework untuk membangun aplikasi backend.
+- **PostgreSQL**: Database untuk menyimpan data perjalanan taksi.
+- **Axios**: Untuk mengambil data dari API eksternal.
+- **Winston**: Untuk logging.
+- **Zod**: Untuk validasi input.
+
 
 ## Prasyarat
 
@@ -23,6 +34,7 @@ Sebelum menjalankan proyek ini, pastikan telah menginstal:
 - PostgreSQL
 - NestJS CLI
 
+
 ## Instalasi
 
 1. **Clone repositori ini:**
@@ -31,7 +43,14 @@ Sebelum menjalankan proyek ini, pastikan telah menginstal:
    git clone https://github.com/yerikhowilliamt/yellow-taxi-trip-backend.git
    cd repository-name
 
-2. Ubah konfigurasi database sesuai database kamu
+2. Ubah konfigurasi database sesuai database kamu :
+   PORT=4000
+   DB_HOST=localhost
+   DB_PORT=5432
+   DB_USER=nama_user
+   DB_PASSWORD=password
+   DB_NAME=nama_database
+   API_URL=https://data.cityofnewyork.us/resource/gkne-dk5s.json
 
 3. Buat database baru dan tambahkan table trips di dalam postgreSQL dengan format seperti berikut :
    ```bash
@@ -70,11 +89,15 @@ Sebelum menjalankan proyek ini, pastikan telah menginstal:
    - Endpoint: GET /trips/store-data
    - GET http://localhost:4000/trips/store-data
    - Deskripsi: Mengambil data perjalanan taksi dari API Socrata dan menyimpannya ke dalam database.
+     
+   ![get stored data](https://github.com/user-attachments/assets/4aaad2ff-6a43-4610-a9b7-9a909f343799)
 
 2. Fetching taxi trip data
    - Endpoint: GET /trips
    - GET http://localhost:4000/trips
    - Deskripsi: Mengambil data perjalanan taksi dari database.
+
+   ![get](https://github.com/user-attachments/assets/899b534d-29d5-493c-80e7-326e5d324430)
 
 3. Mengambil Perjalanan dengan Filter
    - Endpoint: GET /trips/filtered
@@ -88,3 +111,7 @@ Sebelum menjalankan proyek ini, pastikan telah menginstal:
      - minDistance (optional): Jarak minimum.
      - maxDistance (optional): Jarak maksimum.
      - paymentType (optional): Tipe pembayaran ("CRD" : Card/kartu kredit & "CSH" : Cash/tunai).
+     - limit (wajib): Jumlah maksimum data yang akan dikembalikan dalam satu halaman. Default adalah 10.
+     - page (wajib): Nomor halaman data yang akan diambil. Default adalah 1.
+
+   ![get filtered](https://github.com/user-attachments/assets/cca40dae-ae39-4d48-a606-936bd0392933)
