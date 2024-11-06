@@ -44,6 +44,7 @@ Sebelum menjalankan proyek ini, pastikan telah menginstal:
    cd yellow-taxi-trip-backend
 
 2. Ubah konfigurasi database sesuai database kamu :
+   ```bash
    PORT=4000
    DB_HOST=localhost
    DB_PORT=5432
@@ -52,7 +53,7 @@ Sebelum menjalankan proyek ini, pastikan telah menginstal:
    DB_NAME=nama_database
    API_URL=https://data.cityofnewyork.us/resource/gkne-dk5s.json
 
-3. Buat database baru dan tambahkan table trips di dalam postgreSQL dengan format seperti berikut :
+4. Buat database baru dan tambahkan table trips di dalam postgreSQL dengan format seperti berikut :
    ```bash
    CREATE EXTENSION postgis;
    ```
