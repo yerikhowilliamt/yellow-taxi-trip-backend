@@ -2,72 +2,89 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# Yellow Taxi Trip Analytics Backend
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Deskripsi
 
-## Description
+Proyek backend untuk analisis data Yellow Taxi Trip menggunakan NestJS dan PostgreSQL dengan PostGIS untuk penyimpanan dan pengolahan data spasial. Backend ini menyediakan API untuk mengambil dan menyimpan data perjalanan taksi serta mendukung filter berdasarkan waktu, tarif, jarak, dan tipe pembayaran.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Fitur
 
-## Installation
+- Mengambil data perjalanan taksi dari API Socrata.
+- Menyimpan data ke dalam database PostgreSQL dengan PostGIS.
+- API untuk mengambil semua perjalanan taksi.
+- Dukungan filter pada API berdasarkan waktu, tarif, jarak, dan tipe pembayaran.
 
-```bash
-$ npm install
-```
+## Prasyarat
 
-## Running the app
+Sebelum menjalankan proyek ini, pastikan telah menginstal:
 
-```bash
-# development
-$ npm run start
+- Node.js
+- PostgreSQL
+- NestJS CLI
 
-# watch mode
-$ npm run start:dev
+## Instalasi
 
-# production mode
-$ npm run start:prod
-```
+1. **Clone repositori ini:**
 
-## Test
+   ```bash
+   git clone https://github.com/yerikhowilliamt/yellow-taxi-trip-backend.git
+   cd repository-name
 
-```bash
-# unit tests
-$ npm run test
+2. Ubah konfigurasi database sesuai database kamu
 
-# e2e tests
-$ npm run test:e2e
+3. Buat database baru dan tambahkan table trips di dalam postgreSQL dengan format seperti berikut :
+   ```bash
+   CREATE EXTENSION postgis;
+   ```
+   ```bash
+   CREATE EXTENSION postgis_topology;
+   ```
+   ```bash
+   CREATE TABLE trips (
+    		id SERIAL PRIMARY KEY,
+    		vendor_id VARCHAR(50),
+    		pickup_datetime TIMESTAMP,
+    		dropoff_datetime TIMESTAMP,
+    		passenger_count INTEGER,
+    		trip_distance FLOAT,
+    		pickup_location GEOGRAPHY(Point, 4326),
+    		dropoff_location GEOGRAPHY(Point, 4326),
+    		payment_type VARCHAR(50),
+    		fare_amount FLOAT,
+    		mta_tax FLOAT,
+    		tip_amount FLOAT,
+    		tolls_amount FLOAT,
+    		total_amount FLOAT,
+    		imp_surcharge FLOAT,
+    		rate_code VARCHAR(50)
+		);
+   ```
 
-# test coverage
-$ npm run test:cov
-```
+5. Jalankan aplikasi dengan perintah 'npm run start'
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Cara Menggunakan API
 
-## Stay in touch
+1. Menyimpan Data Perjalanan
+   - Endpoint: GET /trips/store-data
+   - GET http://localhost:4000/trips/store-data
+   - Deskripsi: Mengambil data perjalanan taksi dari API Socrata dan menyimpannya ke dalam database.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+2. Fetching taxi trip data
+   - Endpoint: GET /trips
+   - GET http://localhost:4000/trips
+   - Deskripsi: Mengambil data perjalanan taksi dari database.
 
-## License
-
-Nest is [MIT licensed](LICENSE).
+3. Mengambil Perjalanan dengan Filter
+   - Endpoint: GET /trips/filtered
+   - http://localhost:4000/api/yellow-taxi-trips/filtered?startDateTime=2014-09-10T00:00:00&endDateTime=2014-09-10T23:59:59&minFare=0&maxFare=20&minDistance=1.2&maxDistance=20&paymentType=CSH
+   - Deskripsi: Mengambil data perjalanan taksi dengan filter berdasarkan waktu, tarif, jarak, dan tipe pembayaran.
+   - Parameter:
+     - startDateTime (optional): Waktu dimulai.
+     - endDateTime (optional): Waktu berakhir.
+     - minFare (optional): Tarif minimum.
+     - maxFare (optional): Tarif maksimum.
+     - minDistance (optional): Jarak minimum.
+     - maxDistance (optional): Jarak maksimum.
+     - paymentType (optional): Tipe pembayaran ("CRD" : Card/kartu kredit & "CSH" : Cash/tunai).
