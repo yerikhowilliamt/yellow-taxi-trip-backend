@@ -87,15 +87,15 @@ Sebelum menjalankan proyek ini, pastikan telah menginstal:
 ## Cara Menggunakan API
 
 1. Menyimpan Data Perjalanan
-   - Endpoint: GET /trips/store-data
-   - GET http://localhost:4000/trips/store-data
+   - Endpoint: GET /api/yellow-taxi-trips/store-data
+   - GET http://localhost:4000/api/yellow-taxi-trips/store-data
    - Deskripsi: Mengambil data perjalanan taksi dari API Socrata dan menyimpannya ke dalam database.
      
    ![get stored data](https://github.com/user-attachments/assets/4aaad2ff-6a43-4610-a9b7-9a909f343799)
 
 2. Fetching taxi trip data
-   - Endpoint: GET /trips
-   - GET http://localhost:4000/trips
+   - Endpoint: GET /api/yellow-taxi-trips?page=1&limit=10
+   - GET http://localhost:4000/api/yellow-taxi-trips?page=1&limit=10
    - Deskripsi: Mengambil data perjalanan taksi dari database.
 
    ![get](https://github.com/user-attachments/assets/899b534d-29d5-493c-80e7-326e5d324430)
