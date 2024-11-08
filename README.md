@@ -44,65 +44,69 @@ Sebelum menjalankan proyek ini, pastikan telah menginstal:
    cd yellow-taxi-trip-backend
 
 2. Ubah konfigurasi database sesuai database kamu :
+- file **.env**
+  
    ```bash
    PORT=4000
-   DB_HOST=localhost
-   DB_PORT=5432
-   DB_USER=nama_user
-   DB_PASSWORD=password
-   DB_NAME=nama_database
+   DATABASE_URL=postgres://username:password@hostname:port/database_name
    API_URL=https://data.cityofnewyork.us/resource/gkne-dk5s.json
 
-4. Buat database baru dan tambahkan table trips di dalam postgreSQL dengan format seperti berikut :
-   ```bash
-   CREATE EXTENSION postgis;
-   ```
-   ```bash
-   CREATE EXTENSION postgis_topology;
-   ```
-   ```bash
-   CREATE TABLE trips (
-    		id SERIAL PRIMARY KEY,
-    		vendor_id VARCHAR(50),
-    		pickup_datetime TIMESTAMP,
-    		dropoff_datetime TIMESTAMP,
-    		passenger_count INTEGER,
-    		trip_distance FLOAT,
-    		pickup_location GEOGRAPHY(Point, 4326),
-    		dropoff_location GEOGRAPHY(Point, 4326),
-    		payment_type VARCHAR(50),
-    		fare_amount FLOAT,
-    		mta_tax FLOAT,
-    		tip_amount FLOAT,
-    		tolls_amount FLOAT,
-    		total_amount FLOAT,
-    		imp_surcharge FLOAT,
-    		rate_code VARCHAR(50)
-		);
-   ```
+3. Buat database baru dan tambahkan table trips di dalam postgreSQL dengan format seperti berikut :
 
-5. Jalankan aplikasi dengan perintah 'npm run start'
+   1.
+   	```bash
+   	CREATE EXTENSION postgis;
+	```
+   2.
+  	```bash
+	CREATE EXTENSION postgis_topology;
+	```
+   3.
+	```bash
+   	CREATE TABLE trips (
+	    		id SERIAL PRIMARY KEY,
+	    		vendor_id VARCHAR(50),
+	    		pickup_datetime TIMESTAMP,
+	    		dropoff_datetime TIMESTAMP,
+	    		passenger_count INTEGER,
+	    		trip_distance FLOAT,
+	    		pickup_location GEOGRAPHY(Point, 4326),
+	    		dropoff_location GEOGRAPHY(Point, 4326),
+	    		payment_type VARCHAR(50),
+	    		fare_amount FLOAT,
+	    		mta_tax FLOAT,
+	    		tip_amount FLOAT,
+	    		tolls_amount FLOAT,
+	    		total_amount FLOAT,
+	    		imp_surcharge FLOAT,
+	    		rate_code VARCHAR(50)
+			);
+	```
+
+5. Jalankan aplikasi dengan perintah "npm run start:dev" untuk development mode dan "npm run start" untuk production mode.
 
 
 ## Cara Menggunakan API
 
+URL: yellow-taxi-trips.up.railway.app
+
 1. Menyimpan Data Perjalanan
    - Endpoint: GET /api/yellow-taxi-trips/store-data
-   - GET http://localhost:4000/api/yellow-taxi-trips/store-data
+   - GET https://yellow-taxi-trips.up.railway.app/api/yellow-taxi-trips/store-data
    - Deskripsi: Mengambil data perjalanan taksi dari API Socrata dan menyimpannya ke dalam database.
      
-   ![get stored data](https://github.com/user-attachments/assets/4aaad2ff-6a43-4610-a9b7-9a909f343799)
+   ![GET stored-data](https://github.com/user-attachments/assets/4fc2b35c-e4c3-413d-982b-01dedc2f39b1)
 
 2. Fetching taxi trip data
    - Endpoint: GET /api/yellow-taxi-trips?page=1&limit=10
-   - GET http://localhost:4000/api/yellow-taxi-trips?page=1&limit=10
+   - GET https://yellow-taxi-trips.up.railway.app/api/yellow-taxi-trips?page=1&limit=10
    - Deskripsi: Mengambil data perjalanan taksi dari database.
 
-   ![get](https://github.com/user-attachments/assets/899b534d-29d5-493c-80e7-326e5d324430)
+   ![GET data-trips](https://github.com/user-attachments/assets/cdfeadfe-54fb-46df-a628-c9cc6223b9cb)
 
 3. Mengambil Perjalanan dengan Filter
    - Endpoint: GET /trips/filtered
-   - http://localhost:4000/api/yellow-taxi-trips/filtered?startDateTime=2014-09-10T00:00:00&endDateTime=2014-09-10T23:59:59&minFare=0&maxFare=20&minDistance=1.2&maxDistance=20&paymentType=CSH
+   - GET https://yellow-taxi-trips.up.railway.app/api/yellow-taxi-trips/filtered?startDateTime=2014-01-10T00:00:00&endDateTime=2014-03-10T23:59:59&minFare=0&maxFare=5&minDistance=0&maxDistance=5&paymentType=CSH&page=1&limit=10
    - Deskripsi: Mengambil data perjalanan taksi dengan filter berdasarkan waktu, tarif, jarak, dan tipe pembayaran.
    - Parameter:
      - startDateTime (optional): Waktu dimulai.
@@ -115,4 +119,4 @@ Sebelum menjalankan proyek ini, pastikan telah menginstal:
      - limit (wajib): Jumlah maksimum data yang akan dikembalikan dalam satu halaman. Default adalah 10.
      - page (wajib): Nomor halaman data yang akan diambil. Default adalah 1.
 
-   ![get filtered](https://github.com/user-attachments/assets/cca40dae-ae39-4d48-a606-936bd0392933)
+   ![GET filtered](https://github.com/user-attachments/assets/4dfa7143-0905-4f25-ab23-a0c7199180b6)
