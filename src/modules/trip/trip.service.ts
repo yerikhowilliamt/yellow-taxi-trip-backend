@@ -241,8 +241,10 @@ export class TripService {
     page: number = 1,
   ): Promise<WebResponse<TripResponse[]>> {
     try {
-      const getRequest: GetTripRequest =
-        await this.validationService.validate(TripValidation.FILTERED, request);
+      const getRequest: GetTripRequest = await this.validationService.validate(
+        TripValidation.FILTERED,
+        request,
+      );
 
       const values: any[] = [];
       const query = this.buildQueryWithFilters(getRequest, values);
