@@ -92,21 +92,21 @@ URL: yellow-taxi-trips.up.railway.app
 
 1. Menyimpan Data Perjalanan
    - Endpoint: GET /api/yellow-taxi-trips/store-data
-   - GET https://yellow-taxi-trips.up.railway.app/api/yellow-taxi-trips/store-data
+   - GET https://labour-ame-yerikho-william-ad71b689.koyeb.app/api/yellow-taxi-trips/store-data
    - Deskripsi: Mengambil data perjalanan taksi dari API Socrata dan menyimpannya ke dalam database.
      
    ![GET stored-data](https://github.com/user-attachments/assets/4fc2b35c-e4c3-413d-982b-01dedc2f39b1)
 
 2. Fetching taxi trip data
    - Endpoint: GET /api/yellow-taxi-trips?page=1&limit=10
-   - GET https://yellow-taxi-trips.up.railway.app/api/yellow-taxi-trips?page=1&limit=10
+   - GET https://labour-ame-yerikho-william-ad71b689.koyeb.app/api/yellow-taxi-trips?page=1&limit=10
    - Deskripsi: Mengambil data perjalanan taksi dari database.
 
    ![GET data-trips](https://github.com/user-attachments/assets/cdfeadfe-54fb-46df-a628-c9cc6223b9cb)
 
 3. Mengambil Perjalanan dengan Filter
    - Endpoint: GET /trips/filtered
-   - GET https://yellow-taxi-trips.up.railway.app/api/yellow-taxi-trips/filtered?startDateTime=2014-01-10T00:00:00&endDateTime=2014-03-10T23:59:59&minFare=0&maxFare=5&minDistance=0&maxDistance=5&paymentType=CSH&page=1&limit=10
+   - GET https://labour-ame-yerikho-william-ad71b689.koyeb.app/api/yellow-taxi-trips/filtered?startDateTime=2014-01-10T00:00:00&endDateTime=2014-03-10T23:59:59&minFare=0&maxFare=5&minDistance=0&maxDistance=5&paymentType=CSH&page=1&limit=10
    - Deskripsi: Mengambil data perjalanan taksi dengan filter berdasarkan waktu, tarif, jarak, dan tipe pembayaran.
    - Parameter:
      - startDateTime (optional): Waktu dimulai.
